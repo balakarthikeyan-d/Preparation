@@ -10,33 +10,32 @@ public class BinaryAdd {
             }
         }
         int carry=0;
-        StringBuilder output=new StringBuilder();
+        String output="";
         for(int i=a1.length()-1;i>=0;i--){
             int out=Character.getNumericValue(a1.charAt(i))+Character.getNumericValue(b1.charAt(i))+carry;
             switch (out){
                 case 1:
                     carry=0;
-                    output.append(1);
+                    output=1+output;
                     break;
                 case 2:
                     carry=1;
-                    output.append(0);
+                    output=0+output;
                     break;
                 case 3:
                     carry=1;
-                    output.append(1);
+                    output=1+output;
                     break;
                 case 0:
                     carry=0;
-                    output.append(0);
+                    output=0+output;
                     break;
             }
         }
         if(carry!=0)
-            output.append(1);
-        output.reverse();
+            output=1+output;
         System.out.println(output);
-        System.out.println(Integer.parseInt(output.toString(),2));
+        System.out.println(Integer.parseInt(output,2));
 //        System.out.println(Integer.parseInt(a1,2)+Integer.parseInt(b1,2));
     }
 }
