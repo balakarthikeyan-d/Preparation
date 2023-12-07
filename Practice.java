@@ -3,30 +3,18 @@ import java.util.TreeSet;
 
 public class Practice {
     public static void main(String[] args) {
-        String num="00012233342222";
-        Set<String> perfect=new TreeSet<>();
-        char ch='-';
-        String perfectNums="";
-        for(int i=0;i+1<num.length();i++){
-            ch=num.charAt(i);
-            if(perfectNums.equals("")){
-                perfectNums+=String.valueOf(ch);
+        int n=20,start=2,i=1,out=0,mod7=1;
+        while(n!=mod7-1){
+            out+=i;
+            if(mod7%7==0){
+                i=start;
+                start++;
             }
-            if(ch==num.charAt(i+1)){
-                perfectNums+=String.valueOf(ch);
-                if(perfectNums.length()==3){
-                    perfect.add(perfectNums);
-                    ch='-';
-                    perfectNums="";
-                }
+            else {
+                i++;
             }
-            else{
-                ch='-';
-                perfectNums="";
-            }
+            mod7++;
         }
-        Object[] out= perfect.stream().toArray();
-        String result=out.length==0?"":out[out.length-1].toString();
-        System.out.println(result);
+        System.out.println(out);
     }
 }
