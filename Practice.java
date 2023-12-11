@@ -4,52 +4,24 @@ import java.util.Set;
 import java.util.TreeSet;
 public class Practice {
     public static void main(String[] args) {
-//        TreeNode leftTree1=new TreeNode(6);
-//        TreeNode leftTree2=new TreeNode(5,leftTree1,null);
-//        TreeNode leftTree3=new TreeNode(4,leftTree2,null);
-//        TreeNode leftTree4=new TreeNode(3,leftTree3,null);
-//        TreeNode leftTree=new TreeNode(2,leftTree4,null);
-//        TreeNode root=new TreeNode(1,leftTree,null);
-
-        TreeNode leftTree1=new TreeNode(5);
-        TreeNode rightTree1=new TreeNode(6);
-        TreeNode root1=new TreeNode(4,leftTree1,rightTree1);
-        TreeNode leftTree2=new TreeNode(2);
-        TreeNode rightTree2=new TreeNode(3);
-        TreeNode root2=new TreeNode(1,leftTree2,rightTree2);
-        TreeNode root=new TreeNode(0,root2,root1);
-        System.out.println(treeConstruct(root));
+        int[] arr= {1,2,2,2,2,2,2,3};
+        System.out.println(cou(arr));
     }
 
-    public static String treeConstruct(TreeNode node) {
-        String left = "";
-        String right = "";
-        String output = "";
-
-        if(node.left!=null) {
-            left = treeConstruct(node.left);
-        }
-        if(node.right!=null) {
-            right = treeConstruct(node.right);
-        }
-
-        if(left!="") {
-
-            if(right!="") {
-                output = node.val+"("+left+")"+"("+right+")";
+    public static int cou(int[] arr){
+        int count=1,temp=arr[0];
+        for(int i=1;i<arr.length;i++){
+            if(temp==arr[i]){
+                count++;
+                if(((double) count/ arr.length)*100>25){
+                    return temp;
+                }
             }
-            else {
-                output = node.val+"("+left+")";
+            else{
+                temp=arr[i];
+                count=1;
             }
         }
-        else {
-            if(right!="") {
-                output = node.val+"()"+"("+right+")";
-            }
-            else {
-                output = Integer.toString(node.val);
-            }
-        }
-        return output;
+        return temp;
     }
 }
