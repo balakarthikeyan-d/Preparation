@@ -1,27 +1,49 @@
-import com.sun.source.tree.Tree;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-import java.util.Set;
-import java.util.TreeSet;
 public class Practice {
     public static void main(String[] args) {
-        int[] arr= {1,2,2,2,2,2,2,3};
-        System.out.println(cou(arr));
+//        int[][] arr= {{0,0,1,0},{0,0,0,0},{0,0,0,0},{0,1,0,0}};
+        int[][] arr= {{0,1},{1,0},{0,0}};
+        System.out.println(Arrays.deepToString(cou(arr)));
     }
 
-    public static int cou(int[] arr){
-        int count=1,temp=arr[0];
-        for(int i=1;i<arr.length;i++){
-            if(temp==arr[i]){
-                count++;
-                if(((double) count/ arr.length)*100>25){
-                    return temp;
-                }
-            }
-            else{
-                temp=arr[i];
-                count=1;
+    /*
+    * 0 1
+    * 1 0
+    * 0 0
+    * diff[0][0] = onesRow0 + onesCol0 - zerosRow0 - zerosCol0
+    * */
+
+    public static int[][] cou(int[][] grid){
+        int out[][]=new int[grid.length][grid[0].length];
+        for(int i=0;i< grid.length;i++){
+            int zerosRow=checkZerosRows(grid[i]);
+            int onesRow=grid.length-zerosRow;
+            for(int j=0;j<grid[0].length;j++){
+                int zeros=zerosCol(grid,j);
+                int ones=grid[i].length-zeros;
+                out[i][j]=onesRow+ones-zerosRow-zeros;
             }
         }
-        return temp;
+        return out;
+    }
+    static int zerosCol(int mat[][],int i){
+        int col=0;
+        for(int j=0;j<mat.length;j++){
+            if(mat[j][i]==0){
+                col++;
+            }
+        }
+        return col;
+    }
+    static int checkZerosRows(int[] mat){
+        int add=0;
+        for(int i=0;i<mat.length;i++){
+            if(mat[i]==0){
+                add++;
+            }
+        }
+        return add;
     }
 }
