@@ -17,22 +17,14 @@ public class Practice {
     }
 
     public static String cou(List<List<String>> paths){
-        String endPath=paths.get(0).get(1);
-        paths.remove(0);
-        for(int i=1;i< paths.size();i++){
-            boolean flag=false;
-            for(int j=0;j<paths.size() && !flag;j++){
-                String startPath=paths.get(j).get(0);
-                if(startPath.equals(endPath)){
-                    endPath=paths.get(j).get(1);
-                    flag=true;
-                    paths.remove(j);
-                }
-            }
-            if(!flag){
-                return endPath;
-            }
+        HashMap<String,String> map=new HashMap<>();
+        for(int i=0;i<paths.size();i++){
+            map.put(paths.get(i).get(0),paths.get(i).get(1));
         }
-        return "";
+        String startingPoint=paths.get(0).get(0);
+        while(map.get(startingPoint)!=null){
+            startingPoint=map.get(startingPoint);
+        }
+        return startingPoint;
     }
 }
