@@ -3,28 +3,31 @@ import java.util.*;
 
 public class Practice {
     public static void main(String[] args) {
-        List<List<String>> paths=new ArrayList<>();
-        String[] g={"B","C","D","B","C","A"};
-        List<String> path=new ArrayList<>(2);
-        for(int i=0;i< g.length;i++){
-            path.add(g[i]);
-            if(path.size()==2){
-                paths.add(new ArrayList<>(path));
-                path.clear();
-            }
-        }
-        System.out.println(cou(paths));
+        int[][] img={{2,3,4},{5,6,7},{8,9,10},{11,12,13},{14,15,16}};
+        System.out.println(Arrays.deepToString(cou(img)));
     }
 
-    public static String cou(List<List<String>> paths){
-        HashMap<String,String> map=new HashMap<>();
-        for(int i=0;i<paths.size();i++){
-            map.put(paths.get(i).get(0),paths.get(i).get(1));
+    public static int[][] cou(int[][] img){
+        int[][] out=new int[img.length][img[0].length];
+        for(int i=0;i<img.length;i++){
+            for(int j=0;j<img[0].length;j++) {
+                out[i][j] = calculate(i,j, img);
+            }
         }
-        String startingPoint=paths.get(0).get(0);
-        while(map.get(startingPoint)!=null){
-            startingPoint=map.get(startingPoint);
+        return out;
+    }
+    public static int calculate(int i,int j,int[][] img){
+        int out=0,count=0;
+        for(int iIndex=-1;iIndex<=1;iIndex++){
+            for(int jIndex=-1;jIndex<=1;jIndex++){
+                int ni=i+iIndex;
+                int nj=j+jIndex;
+                if(ni<0 || nj<0 || ni>=img.length || nj>=img[i].length)
+                    continue;
+                out+=img[ni][nj];
+                count++;
+            }
         }
-        return startingPoint;
+        return (int)Math.floor(out/count);
     }
 }
